@@ -1,0 +1,169 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+*.xcworkspace
+!*.xcworkspace/contents.xcworkspacedata
+*.swiftpm/xcode
+.cocoapods/**
+.build/
+*.order
+CMakeLists.txt.user
+**/xcshareddata/xcschemes/
+project.xcworkspace/xcshareddata/xcschemes/
+
+# Swift
+*.swiftdoc
+*.swiftmodule
+*.swiftsourceinfo
+.swiftpm/xcode/package.xcworkspace
+
+# iOS
+Pods/
+*.pbxproj
+!project.pbxproj
+!default.pbxproj
+
+# App packaging
+*.ipa
+*.app.dSYM.zip
+*.app.dSYM
+
+# Backup files
+*.backup
+*~.nib
+
+# Cordova
+.hooks
+www/
+
+# Node / Cloudflare Workers / Backend
+RediiBackend/node_modules/
+RediiBackend/.wrangler/
+RediiBackend/dist/
+RediiBackend/.dev/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+RediiBackend/.env
+RediiBackend/.dev.vars
+
+# Package manager
+package-lock.json
+yarn.lock
+yarn-error.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+.nyc_output/
+*.lcov
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.cache/
+.parcel-cache
+
+# Next.js
+.next/
+out/
+
+# Nuxt.js
+.nuxt/
+dist/
+
+# Gatsby files
+.cache/
+public/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Security keys
+*.pem
+*.key
+api_keys.txt
+secrets.json
+
