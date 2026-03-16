@@ -1,81 +1,178 @@
-# Redii Project
+# Redii
 
-一个私密的伴侣应用，让两个人记录共同的美好时光。
+A private couples app for two people to capture and share their moments together.
 
-## 项目结构
+**Two hearts. One center.**
+
+## Overview
+
+Redii is an iOS app designed for couples to strengthen their connection by sharing moments, chatting privately, and reflecting on their relationship with the help of a gentle AI companion. Built with SwiftUI, Core Data, and CloudKit for seamless syncing between partners.
+
+## Features
+
+### Moments
+- **Notes** — Capture thoughts, memories, and sweet messages
+- **Photos** — Share pictures with captions, stored locally and synced via CloudKit
+- **Moods** — Express how you're feeling with emoji-based mood tracking
+- **Voice Notes** — Record and share audio messages with full playback controls
+
+### AI Chat
+- Conversational AI companion powered by OpenAI via a Cloudflare Worker backend
+- Ask for date ideas, relationship advice, or just share what's on your mind
+- Multi-modal input: attach photos, videos, voice recordings, and files
+- Offline fallback with helpful local responses when the backend isn't available
+- Message polish: rewrite messages in a soft, romantic tone
+- Daily prompts for couples to reflect on their relationship
+- Weekly summaries of shared moments
+
+### Partner Chat (Whispers)
+- Real-time private messaging between paired partners
+- Message reactions
+- Synced via CloudKit for cross-device delivery
+
+### Gallery
+- Visual grid of all photos and voice notes
+- Tap to view full detail with playback controls
+- Pull-to-refresh support
+
+### Pairing
+- 6-digit pair code system for connecting partners
+- Share code via system share sheet
+- CloudKit-based partner discovery and linking
+- Skip option for solo exploration
+
+### Security
+- Biometric authentication (Face ID / Touch ID) app lock
+- Automatic lock on app background
+- Passcode fallback when biometrics unavailable
+
+### Settings
+- Theme color selection (Pink, Purple, Blue)
+- AI backend configuration (URL + API token)
+- Data export (JSON)
+- Clear all data
+
+## Architecture
+
+```
+MVVM + Repository Pattern + Dependency Injection
+
+┌─────────────┐     ┌──────────────┐     ┌──────────────────┐
+│    Views     │────▶│  ViewModels  │────▶│   Repositories   │
+│  (SwiftUI)  │     │ (@MainActor) │     │   (Protocols)    │
+└─────────────┘     └──────────────┘     └──────────────────┘
+                                                   │
+                                          ┌────────┴────────┐
+                                          ▼                 ▼
+                                    ┌──────────┐    ┌──────────────┐
+                                    │ Core Data│    │   CloudKit   │
+                                    │ (Local)  │    │   (Sync)     │
+                                    └──────────┘    └──────────────┘
+```
+
+- **Views** — Pure SwiftUI, declarative UI
+- **ViewModels** — Business logic with `@MainActor` async/await
+- **Repositories** — Abstract data access behind protocols
+- **Services** — CloudKit sync, AI backend, voice recording, biometric auth, image caching, data export
+- **Core** — DI container wiring everything together
+
+## Project Structure
 
 ```
 ReDii/
-├── Redii/                    # iOS 客户端
-│   ├── Redii/                # 源代码
-│   │   ├── Models/           # 数据模型
-│   │   ├── Views/            # UI 视图
-│   │   ├── ViewModels/       # MVVM 视图模型
-│   │   ├── Repositories/      # 数据访问层
-│   │   ├── Services/         # 服务层
-│   │   ├── Core/            # 核心配置
-│   │   └── CoreData/        # Core Data 模型
-│   ├── RediiTests/          # 单元测试
-│   └── Package.swift        # Swift Package Manager
-├── RediiBackend/            # Cloudflare Worker 后端
-│   ├── src/                 # TypeScript 源代码
-│   │   ├── index.ts        # 主入口
-│   │   ├── lib/            # 工具库
-│   │   └── types.ts        # TypeScript 类型
-│   └── wrangler.toml       # Cloudflare 配置
-├── .gitignore               # Git 忽略规则
-└── README.md               # 本文档
+├── Redii/                          # iOS client
+│   ├── Redii/
+│   │   ├── Models/                 # User, Moment, ChatMessage, AIMessage, AppState
+│   │   ├── Views/                  # All SwiftUI views
+│   │   ├── ViewModels/             # MVVM view models
+│   │   ├── Repositories/           # MomentRepository, ChatRepository
+│   │   ├── Services/               # CloudKit, AI, Voice, Biometric, ImageCache, DataExport
+│   │   ├── Core/                   # DIContainer
+│   │   └── CoreData/               # MomentEntity, PersistenceController
+│   ├── RediiTests/                 # Unit tests
+│   └── Package.swift
+├── RediiBackend/                   # Cloudflare Worker backend
+│   ├── src/
+│   │   ├── index.ts                # API routes (chat, polish, prompt, summary)
+│   │   ├── lib/
+│   │   │   ├── auth.ts             # Bearer token auth
+│   │   │   ├── cors.ts             # CORS headers
+│   │   │   └── rateLimiter.ts      # IP-based rate limiting (KV)
+│   │   └── types.ts                # TypeScript interfaces
+│   └── wrangler.toml
+└── README.md
 ```
 
-## 快速开始
+## Quick Start
 
-### iOS 应用
+### iOS App
 
-1. 打开 Xcode
-2. 创建新的 iOS 项目
-3. 导入 `Redii/Redii` 文件夹
-4. 配置 CloudKit（可选）
-5. 运行
+1. Open the project in Xcode
+2. Select a simulator or device target
+3. Build and run
+4. Create your account, pair with your partner, and start sharing moments
 
-### 后端服务
+**CloudKit setup** (for syncing between devices):
+- Enable CloudKit capability in Xcode
+- Configure your CloudKit container identifier
+- Ensure both partners are signed into iCloud
+
+### Backend
 
 ```bash
 cd RediiBackend
 npm install
+
+# Set secrets
 wrangler secret put OPENAI_API_KEY
 wrangler secret put API_TOKEN
+
+# Create KV namespace for rate limiting
+wrangler kv:namespace create RATE_LIMIT_STORE
+
+# Local development
 npm run dev
+
+# Deploy
+wrangler deploy
 ```
 
-## 功能特性
+Then configure the backend URL and API token in the app's Settings tab.
 
-### iOS 客户端
-- ✅ 优雅的 SwiftUI 界面
-- ✅ MVVM 架构
-- ✅ Core Data + CloudKit 同步
-- ✅ 依赖注入
-- ✅ 单元测试
-- ✅ AI Chat 功能（类 OpenAI 界面）
-- ✅ 多模态输入支持
+### API Endpoints
 
-### 后端服务
-- ✅ Cloudflare Worker
-- ✅ OpenAI API 集成
-- ✅ JWT 身份验证
-- ✅ 限流保护
-- ✅ CORS 支持
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/ai/chat` | Conversational AI chat |
+| POST | `/ai/message-polish` | Rewrite text in romantic tone |
+| GET | `/ai/daily-prompt` | Generate a daily reflection prompt |
+| POST | `/ai/weekly-summary` | Summarize a week of moments |
 
-## Git 忽略规则
+All endpoints require `Authorization: Bearer <API_TOKEN>` header.
 
-项目已配置完整的 .gitignore：
+## Tech Stack
 
-- **macOS 系统文件**：.DS_Store 等
-- **Xcode 构建产物**：DerivedData、构建输出等
-- **依赖**：node_modules、Pods
-- **敏感信息**：.env、API keys
-- **后端**：Cloudflare Worker 缓存和日志
+### iOS
+- **SwiftUI** — Declarative UI framework
+- **Core Data** — Local persistence
+- **CloudKit** — Cross-device sync and partner pairing
+- **AVFoundation** — Voice recording and playback
+- **LocalAuthentication** — Face ID / Touch ID
+- **PhotosUI** — Photo picker
+- **async/await** — Modern concurrency throughout
 
-## 许可证
+### Backend
+- **Cloudflare Workers** — Edge serverless functions
+- **OpenAI API** — GPT-4 for AI features
+- **KV Storage** — Rate limiting
+
+## Requirements
+
+- iOS 17+
+- Xcode 15+
+- iCloud account (for sync features)
+- Node.js 18+ (for backend development)
+
+## License
 
 MIT License
-

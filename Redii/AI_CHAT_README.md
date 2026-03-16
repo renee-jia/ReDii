@@ -1,85 +1,77 @@
-# Redii AI Chat 功能
+# Redii AI Chat
 
-## 概述
+## Overview
 
-Redii 应用现在包含一个类似 OpenAI 风格的 AI 对话界面，支持多种输入类型。
+OpenAI-style AI chat interface with multi-modal inputs.
 
-## 功能特性
+## Features
 
-### 📝 多模态输入
-- **文本输入**：基本的文本对话
-- **图片上传**：支持照片选择器
-- **语音录制**：5-30秒语音笔记
-- **视频上传**：支持视频文件
-- **文件附件**：支持各种文件类型
+### 📝 Multi-modal input
+- Text chat
+- Image upload (Photos)
+- Voice notes (5–30s)
+- Video upload
+- File attachments
 
-### 🎨 界面设计
-- **OpenAI 风格界面**：流畅的对话体验
-- **智能消息流**：用户和 AI 消息自动区分
-- **附件预览**：发送前可预览所有附件
-- **加载动画**：优雅的处理状态指示器
-- **自动滚动**：新消息自动滚动到底部
+### 🎨 UI/UX
+- OpenAI-like layout
+- Smart message stream (user vs assistant)
+- Attachment previews
+- Typing indicator
+- Auto scroll to bottom
 
-### 🔧 技术实现
+### 🔧 Implementation
 
-#### 数据模型
-- `AIMessage`: 消息模型，支持文本和附件
-- `AIMessage.Attachment`: 附件模型，支持图片/语音/视频/文件
-- 完全 Codable，支持本地存储
+#### Data model
+- `AIMessage` (text + attachments)
+- `AIMessage.Attachment` (image/voice/video/file)
 
-#### 视图模型
-- `AIChatViewModel`: 管理消息状态和输入
-- 与 `AIService` 集成，调用后端 API
-- 支持异步消息发送和错误处理
+#### View model
+- `AIChatViewModel` manages state and integrates with `AIService`
 
-#### 主要组件
-- `AIChatView`: 主对话界面
-- `MessageRow`: 消息行显示
-- `AttachmentView`: 附件预览
-- `ProcessingIndicator`: 处理状态指示器
-- `ImagePicker`: 图片选择器
-- `DocumentPicker`: 文件选择器
+#### Components
+- `AIChatView`, `MessageRow`, `AttachmentView`
+- `ProcessingIndicator`, `ImagePicker`, `DocumentPicker`
 
-## 使用说明
+## Usage
 
-### 在应用中访问
-1. 打开 Redii 应用
-2. 切换到 "AI Chat" 标签
-3. 开始对话
+### Access in app
+1. Open Redii
+2. Switch to the "AI Chat" tab
+3. Start chatting
 
-### 发送文本消息
-- 在输入框输入文本
-- 点击发送按钮（当有内容时显示蓝色发送图标）
+### Send a text message
+- Type in the field
+- Tap the send button (blue icon appears when ready)
 
-### 添加附件
-底部工具栏提供：
-- **📷 Photo**: 选择图片
-- **🎥 Video**: 选择视频
-- **🎤 Voice**: 录制语音
-- **📄 File**: 选择文件
+### Add attachments
+Bottom toolbar offers:
+- 📷 Photo
+- 🎥 Video
+- 🎤 Voice
+- 📄 File
 
-### 预览附件
-选择附件后会在输入框上方显示预览，可以：
-- 查看缩略图
-- 点击删除按钮移除附件
+### Preview attachments
+- Thumbnails appear above the input field
+- Remove using the X button
 
-## 后端集成
+## Backend Integration
 
-### API 端点
-- `/ai/message-polish`: 润色文本消息
-- `/ai/daily-prompt`: 获取每日提示
-- `/ai/weekly-summary`: 生成每周总结
+### Endpoints
+- `/ai/message-polish`
+- `/ai/daily-prompt`
+- `/ai/weekly-summary`
 
-### 配置
-在 `AIService.swift` 中配置：
+### Configuration
+In `AIService.swift`:
 ```swift
 private let baseURL: String = "https://your-worker.workers.dev"
 private let apiToken: String = "your-api-token"
 ```
 
-## 消息类型
+## Message Types
 
-### 用户消息
+### User message
 ```swift
 let message = AIMessage.userMessage(
     content: "Hello!",
@@ -87,14 +79,14 @@ let message = AIMessage.userMessage(
 )
 ```
 
-### AI 消息
+### Assistant message
 ```swift
 let message = AIMessage.assistantMessage(
     content: "Hello! How can I help you today?"
 )
 ```
 
-### 带附件的消息
+### Message with attachment
 ```swift
 let attachment = AIMessage.Attachment(
     type: .image,
@@ -107,35 +99,32 @@ let message = AIMessage.userMessage(
 )
 ```
 
-## 示例截图功能
+## Examples
 
-### 文本对话
+### Text chat
 ```
 User: "Today was great!"
 AI: "Today was simply wonderful, filled with gentle joy and warm moments..."
 ```
 
-### 图片对话
+### Image chat
 ```
-User: [照片] "Look at this sunset!"
+User: [photo] "Look at this sunset!"
 AI: "What a breathtakingly beautiful sunset! The colors are so peaceful and romantic..."
 ```
 
-## 未来增强
+## Roadmap
 
-- [ ] 语音输入（语音转文字）
-- [ ] 视频消息播放器
-- [ ] 文件下载和打开
-- [ ] 消息历史持久化
-- [ ] 消息搜索功能
-- [ ] 多语言支持
+- [ ] Voice input (STT)
+- [ ] Video player
+- [ ] File preview/open
+- [ ] Message history persistence
+- [ ] Search
+- [ ] i18n
 
-## 技术栈
+## Tech
 
-- **SwiftUI**: 现代声明式 UI
-- **Async/Await**: 现代并发处理
-- **URLSession**: 网络请求
-- **AVFoundation**: 音频处理
-- **PhotosPicker**: 图片选择
-- **DocumentPicker**: 文件选择
+- SwiftUI, Async/Await
+- URLSession, AVFoundation
+- PhotosPicker, DocumentPicker
 

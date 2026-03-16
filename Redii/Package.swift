@@ -16,11 +16,13 @@ let package = Package(
     targets: [
         .target(
             name: "Redii",
-            dependencies: []
+            dependencies: [],
+            path: "Redii"
         ),
         .testTarget(
             name: "RediiTests",
-            dependencies: ["Redii"]
+            dependencies: ["Redii"],
+            path: "RediiTests"
         )
     ]
 )

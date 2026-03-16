@@ -2,6 +2,14 @@ export interface RediiRequest extends Request {
   env: any;
 }
 
+export interface ChatRequest {
+  messages: Array<{ role: string; content: string }>;
+}
+
+export interface ChatResponse {
+  reply: string;
+}
+
 export interface MessagePolishRequest {
   text: string;
 }

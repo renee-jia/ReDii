@@ -4,7 +4,7 @@ struct AIChatDemoView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                Text("AI Chat UI 演示")
+                Text("AI Chat UI Demo")
                     .font(.largeTitle)
                     .bold()
                 
@@ -20,19 +20,19 @@ struct AIChatDemoView: View {
 struct DemoSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("1. 消息样式")
+            Text("1. Message Styles")
                 .font(.title2)
                 .bold()
             
             VStack(alignment: .trailing, spacing: 8) {
-                MessageBubble(demo: .user(text: "Today was nice"))
+                DemoMessageBubble(demo: .user(text: "Today was nice"))
                 Text("10:23 AM")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                MessageBubble(demo: .assistant(text: "Today was absolutely wonderful, filled with simple, beautiful moments that make my heart smile."))
+                DemoMessageBubble(demo: .assistant(text: "Today was absolutely wonderful, filled with simple, beautiful moments that make my heart smile."))
                 Text("10:23 AM")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
@@ -44,7 +44,7 @@ struct DemoSection: View {
 struct DemoSection2: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("2. 附件预览")
+            Text("2. Attachment Preview")
                 .font(.title2)
                 .bold()
             
@@ -68,7 +68,7 @@ struct DemoSection2: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(Color(.systemGray6))
+                .background(Color(UIColor.systemGray6))
                 .cornerRadius(12)
                 
                 Spacer()
@@ -80,7 +80,7 @@ struct DemoSection2: View {
 struct DemoSection3: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("3. 输入区域")
+            Text("3. Input Area")
                 .font(.title2)
                 .bold()
             
@@ -100,7 +100,7 @@ struct DemoSection3: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(Color(.systemGray6))
+                .background(Color(UIColor.systemGray6))
                 .cornerRadius(20)
                 
                 HStack(spacing: 20) {
@@ -131,7 +131,7 @@ struct DemoSection3: View {
     }
 }
 
-struct MessageBubble: View {
+struct DemoMessageBubble: View {
     enum DemoType {
         case user(text: String)
         case assistant(text: String)
@@ -186,7 +186,9 @@ struct MessageBubble: View {
     }
 }
 
-#Preview {
-    AIChatDemoView()
+struct AIChatDemoView_Previews: PreviewProvider {
+    static var previews: some View {
+        AIChatDemoView()
+    }
 }
 

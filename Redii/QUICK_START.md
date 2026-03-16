@@ -1,72 +1,72 @@
-# Redii iOS 项目 - 快速开始
+# Redii iOS – Quick Start
 
-## 项目概述
+## Overview
 
-Redii 是一个私密的伴侣应用，让两个人记录共同的美好时光。
+Redii is a private couples app for two people to capture shared moments.
 
 ## 核心功能
 
-### 🏠 首页
-- 显示在一起的天数
-- 快速添加时刻
-- 快速访问 AI Chat 和 Partner Chat
+### 🏠 Home
+- Days together counter
+- Quick add Moment
+- Quick access to AI Chat and Partner Chat
 
-### ⭐ 时刻 (Moments)
-- 支持多种类型：笔记、照片、心情、语音
-- 筛选功能（全部/笔记/照片/心情/语音）
-- 下拉刷新
-- 滑动删除
+### ⭐ Moments
+- Types: Note, Photo, Mood, Voice
+- Filters (All/Notes/Photos/Moods/Voice)
+- Pull to refresh
+- Swipe to delete
 
-### 🤖 AI Chat（新功能）
-- **OpenAI 风格的对话界面**
-- **多模态输入支持**：
-  - 📝 文本
-  - 🎤 语音
-  - 📷 图片
-  - 🎥 视频
-  - 📄 文件
-- 与后端 API 集成
-- 消息自动滚动
-- 优雅的加载动画
+### 🤖 AI Chat
+- OpenAI-style chat UI
+- Multi-modal inputs:
+  - 📝 Text
+  - 🎤 Voice
+  - 📷 Image
+  - 🎥 Video
+  - 📄 File
+- Backend API integration
+- Auto scroll to latest message
+- Subtle typing indicator
 
 ### 💬 Partner Chat
-- 私密聊天
-- 表情回应
-- 实时同步
+- Private chat
+- Lightweight reactions
+- Real-time sync (via CloudKit in future)
 
-### 📸 记忆画廊
-- 照片和语音网格展示
-- 详细查看
-- 时间线浏览
+### 📸 Memory Gallery
+- Grid for photos and voice entries
+- Detail view
+- Timeline browsing
 
-### ⚙️ 设置
-- 主题颜色
-- 应用锁定
-- 数据导出
+### ⚙️ Settings
+- Theme color
+- App Lock
+- Export (stub)
 
-## 技术栈
+## Tech Stack
 
-- **UI**: SwiftUI
-- **架构**: MVVM + Repository
-- **数据**: Core Data + CloudKit
-- **依赖注入**: DI Container
-- **异步**: async/await
-- **测试**: 单元测试（包含测试示例）
+- UI: SwiftUI
+- Architecture: MVVM + Repository
+- Data: Core Data + CloudKit
+- DI: Simple container
+- Concurrency: async/await
+- Testing: Unit tests
 
-## AI Chat 详细功能
+## AI Chat Details
 
-### 输入类型
+### Input Types
 ```swift
 enum InputType {
-    case text      // 文本输入
-    case voice     // 语音录制
-    case image     // 图片选择
-    case video     // 视频选择
-    case file      // 文件上传
+    case text      // text input
+    case voice     // voice recording
+    case image     // image selection
+    case video     // video selection
+    case file      // file attachment
 }
 ```
 
-### 消息模型
+### Message Model
 ```swift
 struct AIMessage: Identifiable, Codable {
     let id: UUID
@@ -77,81 +77,80 @@ struct AIMessage: Identifiable, Codable {
 }
 ```
 
-### 使用方法
+### Usage
 
-1. **访问 AI Chat**
-   - 在标签栏选择 "AI Chat"
-   - 或在首页点击 "AI Chat" 按钮
-   - 或在顶部工具栏点击 sparkles 图标
+1. Access AI Chat
+   - Select the "AI Chat" tab
+   - Or tap "AI Chat" on Home quick actions
+   - Or tap the sparkles icon in the toolbar
 
-2. **发送文本消息**
-   - 输入文本
-   - 点击蓝色发送按钮
+2. Send a text message
+   - Type text and tap the send button
 
-3. **添加附件**
-   - 点击底部工具栏的图标：
-     - 📷 Photo: 选择图片
-     - 🎥 Video: 选择视频
-     - 🎤 Voice: 录制语音
-     - 📄 File: 选择文件
+3. Add attachments
+   - Use bottom toolbar icons:
+     - 📷 Photo
+     - 🎥 Video
+     - 🎤 Voice
+     - 📄 File
 
-4. **预览附件**
-   - 附件会在输入框上方显示
-   - 点击 X 删除附件
+4. Preview attachments
+   - Preview appears above the input field
+   - Remove with the X button
 
-## 后端 API
+## Backend API
 
-### 配置
-在 `Redii/Redii/Services/AIService.swift` 中配置：
+### Configuration
+Configure in `Redii/Redii/Services/AIService.swift`:
 ```swift
 private let baseURL: String = "https://your-worker.workers.dev"
 private let apiToken: String = "your-api-token"
 ```
 
-### API 端点
-- `POST /ai/message-polish` - 润色消息
-- `GET /ai/daily-prompt` - 每日提示
-- `POST /ai/weekly-summary` - 每周总结
+### Endpoints
+- `POST /ai/message-polish` - polish a message
+- `GET /ai/daily-prompt` - fetch daily prompt
+- `POST /ai/weekly-summary` - generate weekly summary
 
-## 项目结构
+## Project Structure
 
 ```
 Redii/
 ├── Redii/
-│   ├── Models/              # 数据模型
+│   ├── Models/              # data models
 │   │   ├── Moment.swift
 │   │   ├── User.swift
 │   │   ├── ChatMessage.swift
 │   │   ├── AIMessage.swift     # AI 消息模型
 │   │   └── AppState.swift
-│   ├── Views/               # 视图层
+│   ├── Views/               # views
 │   │   ├── RediiApp.swift
 │   │   ├── HomeView.swift
 │   │   ├── AIChatView.swift    # AI Chat 界面
 │   │   ├── ChatView.swift
 │   │   └── ...
-│   ├── ViewModels/          # 视图模型
+│   ├── ViewModels/          # view models
 │   │   ├── AIChatViewModel.swift  # AI Chat 逻辑
 │   │   └── ...
-│   ├── Repositories/        # 数据访问
-│   ├── Services/           # 服务层
-│   │   ├── AIService.swift     # AI API 服务
+│   ├── Repositories/        # repositories
+│   ├── Services/            # services
+│   │   ├── AIService.swift  # AI API service
 │   │   ├── CloudKitService.swift
 │   │   └── ...
-│   └── Core/               # 核心配置
+│   └── Core/                # core config
 ├── RediiTests/             # 单元测试
 └── RediiBackend/           # 后端服务
 ```
 
-## 开发指南
+## Development Guide
 
-### 运行项目
-1. 打开 Xcode
-2. 导入 `Redii/Redii` 文件夹
-3. 配置 CloudKit（可选）
-4. 运行项目
+### Run the app
+1. Open Xcode
+2. Import the `Redii/Redii` folder
+3. Configure CloudKit (optional)
+4. Run
 
-### 运行后端
+### Run the backend
 ```bash
 cd RediiBackend
 npm install
@@ -160,47 +159,41 @@ wrangler secret put API_TOKEN
 wrangler dev
 ```
 
-### 测试
+### Tests
 ```bash
-# 运行单元测试
-# 在 Xcode 中按 Cmd+U
+# Run unit tests via Xcode (Cmd+U)
 ```
 
-## 特色亮点
+## Highlights
 
-✅ **生产级代码质量**
-- 完整错误处理
-- 异步架构
-- 协议抽象
-- 依赖注入
+✅ Production-quality code
+- Robust error handling
+- Async architecture
+- Protocol abstractions
+- Dependency injection
 
-✅ **现代化的 UI/UX**
-- SwiftUI
-- SF Symbols
-- 触觉反馈
-- 流畅动画
+✅ Modern UI/UX
+- SwiftUI, SF Symbols, Haptics
+- Smooth animations
 
-✅ **完整的功能**
-- AI 对话
-- 多模态支持
-- 本地缓存
-- CloudKit 同步
+✅ Complete features
+- AI chat
+- Multi-modal support
+- Local cache + CloudKit sync
 
-✅ **完善的测试**
-- 单元测试覆盖
-- 内存测试版本
-- ViewModel 测试
+✅ Tests
+- Unit tests for models, repos, view models
 
-## 下一步
+## Next Steps
 
-- [ ] 实现实际的语音录制
-- [ ] 添加视频播放器
-- [ ] 完善文件预览
-- [ ] 添加消息历史持久化
-- [ ] 实现表情回应
-- [ ] 添加主题切换动画
+- [ ] Voice recording (real capture)
+- [ ] Video playback
+- [ ] File preview improvements
+- [ ] Message history persistence
+- [ ] Reactions
+- [ ] Theming animations
 
-## 许可证
+## License
 
 MIT License
 

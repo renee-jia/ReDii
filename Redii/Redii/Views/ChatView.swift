@@ -96,10 +96,10 @@ struct MessageBubble: View {
     
     var body: some View {
         HStack {
-            if !isFromCurrentUser {
+            if isFromCurrentUser {
                 Spacer(minLength: 50)
             }
-            
+
             VStack(alignment: isFromCurrentUser ? .trailing : .leading, spacing: 4) {
                 Text(message.text)
                     .padding(.horizontal, 16)
@@ -107,18 +107,18 @@ struct MessageBubble: View {
                     .background(isFromCurrentUser ? Color.blue : Color(.systemGray5))
                     .foregroundStyle(isFromCurrentUser ? .white : .primary)
                     .cornerRadius(18)
-                
+
                 if let reaction = message.reaction {
                     Text(reaction)
                         .font(.caption)
                 }
-                
+
                 Text(message.timestamp, style: .time)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
-            
-            if isFromCurrentUser {
+
+            if !isFromCurrentUser {
                 Spacer(minLength: 50)
             }
         }

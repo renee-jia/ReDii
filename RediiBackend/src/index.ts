@@ -25,6 +25,8 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext):
 
   try {
     switch (url.pathname) {
+      case '/ai/chat':
+        return handleChat(request, env);
       case '/ai/message-polish':
         return handleMessagePolish(request, env);
       case '/ai/daily-prompt':
@@ -40,6 +42,51 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext):
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
+  }
+}
+
+async function handleChat(request: Request, env: Env): Promise<Response> {
+  const authResponse = await authMiddleware(request, env);
+  if (authResponse) return handleCors(authResponse, env);
+
+  const rateLimitResponse = await new RateLimiter(env).checkLimit(request);
+  if (rateLimitResponse) return handleCors(rateLimitResponse, env);
+
+  try {
+    const { messages } = await request.json() as { messages: Array<{ role: string; content: string }> };
+
+    if (!messages || !Array.isArray(messages)) {
+      return handleCors(new Response(JSON.stringify({ error: 'Invalid request body' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      }), env);
+    }
+
+    const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4-turbo-preview',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a warm, empathetic AI companion for a couples app called Redii. You help partners reflect on their relationship, suggest date ideas, offer gentle relationship advice, and celebrate their love story. Be supportive, thoughtful, and never judgmental. Keep responses concise and heartfelt.'
+        },
+        ...messages.map(m => ({ role: m.role as 'user' | 'assistant', content: m.content }))
+      ],
+      temperature: 0.7,
+      max_tokens: 600
+    });
+
+    const reply = completion.choices[0]?.message?.content || "I'm here for you both.";
+
+    return handleCors(new Response(JSON.stringify({ reply }), {
+      headers: { 'Content-Type': 'application/json' }
+    }), env);
+  } catch (error) {
+    console.error('Error in chat:', error);
+    return handleCors(new Response(JSON.stringify({ error: 'Failed to process chat' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    }), env);
   }
 }
 

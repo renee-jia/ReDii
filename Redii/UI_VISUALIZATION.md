@@ -1,14 +1,14 @@
-# AI Chat UI 可视化
+# AI Chat UI Visualization
 
-## 界面布局
+## Layout
 
 ```
 ┌─────────────────────────────────────┐
-│  AI Chat                     [⚡]   │ ← 顶部导航栏
+│  AI Chat                     [⚡]   │ ← top navigation
 ├─────────────────────────────────────┤
 │                                     │
 │                          ┌────────┐ │
-│                          │Hello!  │ │ ← 用户消息（右对齐，蓝色气泡）
+│                          │Hello!  │ │ ← user message (right, blue bubble)
 │                          │How can │ │
 │                          │you     │ │
 │                          │help?   │ │
@@ -16,7 +16,7 @@
 │                          10:23 AM  │
 │                                     │
 │  ┌─────────────────────┐           │
-│  │Hello! I'm here     │           │ ← AI消息（左对齐，灰色气泡）
+│  │Hello! I'm here     │           │ ← assistant message (left, gray bubble)
 │  │to help you...      │           │
 │  └─────────────────────┘           │
 │  10:23 AM                           │
@@ -47,111 +47,111 @@
 │  10:25 AM                           │
 │                                     │
 ├─────────────────────────────────────┤
-│  [📷] [📹] [🎤] [📄]               │ ← 输入类型按钮
+│  [📷] [📹] [🎤] [📄]               │ ← input type buttons
 │  ┌─────────────────────────────────┐ │
-│  │ Type a message...        [↑]   │ │ ← 输入框（自适应高度）
+│  │ Type a message...        [↑]   │ │ ← input field (auto height)
 │  └─────────────────────────────────┘ │
 └─────────────────────────────────────┘
 ```
 
-## 消息样式对比
+## Message Styles
 
-### 用户消息
+### User Message
 ```
 ┌─────────────────────────┐
-│ Today was nice          │  ← 蓝色背景，白色文字
+│ Today was nice          │  ← blue background, white text
 └─────────────────────────┘
-        10:23 AM           ← 时间戳在下方
+        10:23 AM           ← timestamp below
 ```
 - 右对齐
 - 蓝色背景
 - 白色文字
 - 圆角气泡
 
-### AI 消息
+### Assistant Message
 ```
     ┌─────────────────────┐
-    │ Today was           │  ← 灰色背景，黑色文字
+    │ Today was           │  ← gray background, dark text
     │ absolutely          │
     │ wonderful...        │
     └─────────────────────┘
-    10:23 AM              ← 时间戳在下方
+    10:23 AM              ← timestamp below
 ```
 - 左对齐
 - 浅灰色背景
 - 黑色文字
 - 圆角气泡
 
-## 附件展示
+## Attachments
 
-### 图片附件
+### Image
 ```
 ┌─────────────────────────┐
-│  [图片缩略图 200x200]    │  ← 可点击查看大图
+│  [image 200x200]         │  ← preview
 └─────────────────────────┘
 ```
 
-### 语音附件
+### Voice
 ```
 ┌─────────────────────────┐
-│  ▶ Play   voice.m4a     │  ← 播放按钮 + 文件名
+│  ▶ Play   voice.m4a     │  ← play button + filename
 └─────────────────────────┘
 ```
 
-### 视频附件
+### Video
 ```
 ┌─────────────────────────┐
-│  🎥                     │  ← 视频图标 + 文件名
+│  🎥                     │  ← icon + filename
 │  video.mp4              │
 └─────────────────────────┘
 ```
 
-### 文件附件
+### File
 ```
 ┌─────────────────────────┐
-│  📄 document.pdf        │  ← 文件图标 + 名称 + 大小
+│  📄 document.pdf        │  ← icon + name + size
 │    2.5 MB               │
 └─────────────────────────┘
 ```
 
-## 输入区域
+## Input Area
 
-### 基础输入
+### Basic
 ```
 ┌─────────────────────────────────────┐
-│  [⌨️] Type a message...       [↑]   │  ← 键盘图标 + 输入框 + 发送按钮
+│  [⌨️] Type a message...       [↑]   │  ← keyboard + input + send
 └─────────────────────────────────────┘
 ```
 
-### 有附件时
+### With attachments
 ```
 ┌─────────────────────────────────────┐
-│  [图片预览] [X]                    │  ← 附件预览区
+│  [image preview] [X]               │  ← attachment preview
 ├─────────────────────────────────────┤
 │  [⌨️] Type a message...       [↑]   │
 └─────────────────────────────────────┘
 ```
 
-### 底部工具栏
+### Toolbar
 ```
 ┌─────────────────────────────────────┐
-│  [📷 Photo] [🎥 Video]              │  ← 输入类型选择
-│  [🎤 Voice] [📄 File]                │
+│  [📷 Photo] [🎥 Video]
+│  [🎤 Voice] [📄 File]
 └─────────────────────────────────────┘
 ```
 
-## 处理状态
+## Typing Indicator
 
-### 加载动画
+### Animation
 ```
     ┌────────┐
-    │ ●  ●  ● │  ← 三个跳动的圆点
+    │ ●  ●  ● │  ← three bouncing dots
     └────────┘
 ```
 
-## 场景示例
+## Scenarios
 
-### 场景1：空状态
+### Scenario 1: Empty State
 ```
 ┌─────────────────────────────────────┐
 │                                     │
@@ -163,88 +163,85 @@
 └─────────────────────────────────────┘
 ```
 
-### 场景2：对话中
+### Scenario 2: Conversation
 ```
-用户: "Make this romantic: 'I had coffee'"
-AI:   "I savored a warm cup of coffee today, and 
-       it reminded me of the cozy moments we share together..."
-```
-
-### 场景3：带图片
-```
-用户: [图片] + "Look at this sunset!"
-AI: "What a breathtakingly beautiful sunset! 
-    The colors are so peaceful and romantic..."
+User: "Make this romantic: 'I had coffee'"
+AI:   "I savored a warm cup of coffee today, and it reminded me of the cozy moments we share together..."
 ```
 
-### 场景4：多附件
+### Scenario 3: With Image
 ```
-用户: [图片] + [语音] + [文件]
-      "Check out these files!"
+User: [image] + "Look at this sunset!"
+AI: "What a breathtakingly beautiful sunset! The colors are so peaceful and romantic..."
+```
+
+### Scenario 4: Multiple Attachments
+```
+User: [image] + [voice] + [file] "Check out these files!"
 AI: "I received your message with attachments!"
 ```
 
-## 交互说明
+## Interactions
 
-### 发送消息
-1. 输入文本（或选择附件）
-2. 输入框右下角显示蓝色发送按钮
-3. 点击发送
-4. 消息添加到对话
-5. 自动滚动到底部
-6. 显示加载动画
-7. AI 回复出现
+### Send message
+1. Type text (or add attachments)
+2. Blue send button appears
+3. Tap to send
+4. Message appended
+5. Auto-scroll to bottom
+6. Typing indicator visible
+7. Assistant response appears
 
-### 选择附件
-1. 点击底部工具栏图标（📷/🎥/🎤/📄）
-2. 系统选择器打开
-3. 选择文件后预览显示
-4. 可以在发送前删除（点击 X）
+### Choose attachments
+1. Tap toolbar icons (📷/🎥/🎤/📄)
+2. System pickers open
+3. Preview appears
+4. Remove before sending (X)
 
-### 长按操作
-- 消息气泡：复制/删除
-- 附件：预览/下载
+### Long-press actions
+- Bubble: copy/delete
+- Attachment: preview/download
 
-## 视觉反馈
+## Visual Feedback
 
-### 按钮状态
-- **禁用**：灰色，无响应
-- **启用**：蓝色，可点击
-- **发送中**：显示加载动画
-- **成功**：消息出现
-- **失败**：显示错误提示
+### Button states
+- Disabled: gray
+- Enabled: blue
+- Sending: typing indicator
+- Success: message shown
+- Error: inline error
 
-### 动画
-- 新消息：从底部滑入
-- 加载：三个点跳动
-- 附件上传：进度条
-- 错误：红色提示闪烁
+### Animations
+- New message: slide-in
+- Typing: bouncing dots
+- Upload: progress bar
+- Error: subtle shake or red hint
 
-## 快捷键
-- **发送**：Cmd+Enter
-- **换行**：Shift+Enter
-- **清空输入**：Cmd+K
+## Shortcuts
+- Send: Cmd+Enter
+- New line: Shift+Enter
+- Clear input: Cmd+K
 
-## 响应式设计
+## Responsive
 
-### iPhone (竖屏)
-- 单列消息流
-- 底部固定输入
-- 工具栏横向滚动
+### iPhone (portrait)
+- Single column
+- Input docked at bottom
+- Toolbar scrolls horizontally
 
-### iPad (横屏)
-- 消息列表 + 详情
-- 分屏布局
+### iPad (landscape)
+- List + detail
+- Split view
 
-## 颜色主题
+## Themes
 
-### 浅色模式
-- 用户消息：#007AFF (iOS 蓝)
-- AI 消息：#E5E5EA (浅灰)
-- 背景：#FFFFFF
+### Light
+- User: #007AFF
+- Assistant: #E5E5EA
+- Background: #FFFFFF
 
-### 深色模式
-- 用户消息：#0A84FF (iOS 蓝)
-- AI 消息：#2C2C2E (深灰)
-- 背景：#000000
+### Dark
+- User: #0A84FF
+- Assistant: #2C2C2E
+- Background: #000000
 

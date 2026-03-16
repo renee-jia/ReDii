@@ -106,7 +106,7 @@ struct FilterChip: View {
                 .font(.subheadline)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                .background(isSelected ? Color.accentColor : Color(.systemGray6))
+                .background(isSelected ? Color.accentColor : Color(UIColor.systemGray6))
                 .foregroundStyle(isSelected ? .white : .primary)
                 .cornerRadius(20)
         }
@@ -115,7 +115,7 @@ struct FilterChip: View {
 
 struct MomentCard: View {
     let moment: Moment
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -125,17 +125,42 @@ struct MomentCard: View {
                     .padding(.vertical, 4)
                     .background(Color.accentColor.opacity(0.2))
                     .cornerRadius(4)
-                
+
                 Spacer()
-                
+
                 Text(moment.createdAt, style: .relative)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            
-            Text(moment.content)
-                .font(.body)
-            
+
+            if let photoURL = moment.photoURL,
+               let data = try? Data(contentsOf: photoURL),
+               let uiImage = UIImage(data: data) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxHeight: 200)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+
+            if let voiceURL = moment.voiceURL {
+                HStack {
+                    Image(systemName: "waveform.circle.fill")
+                        .foregroundStyle(.blue)
+                    Text("Voice note")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    Text(voiceURL.lastPathComponent)
+                        .font(.caption)
+                        .foregroundStyle(.tertiary)
+                }
+            }
+
+            if !moment.content.isEmpty {
+                Text(moment.content)
+                    .font(.body)
+            }
+
             if let mood = moment.mood {
                 HStack {
                     Text(mood.emoji)
